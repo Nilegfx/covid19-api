@@ -1,0 +1,90 @@
+swagger: "2.0"
+info:
+  description: "This is an experimentational api which tries to fetch data from trusted sources like World Health Organization and Johns Hopkins University CSSE, so fare, there is no up-to-date source/API for COVID19 pandemic so this is a personal attempt to see the truth and not meant to for commercial use"
+  version: "1.0.0"
+  title: "COVID19 Statistics API"
+  contact:
+    email: "m3ntorship.com@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "covid19-api.web.app"
+basePath: "/api"
+tags:
+- name: "stats"
+  description: "Recent Statistics for COVID19"
+schemes:
+- "https"
+paths:
+  /cases:
+    get:
+      tags:
+      - "stats"
+      summary: "get covid19 stats for all affected countries"
+      description: "get covid19 stats for all affected countries"
+      operationId: "getCasesFromAllCountries"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        503:
+          description: "Service Unavailable"
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              results:
+                type: 'array'
+                items: 
+                 $ref: "#/definitions/Stats"
+  /cases/{country}:
+    get:
+      tags:
+      - "stats"
+      summary: "get covid19 stats for all affected countries"
+      description: "get covid19 stats for all affected countries"
+      operationId: "getCasesByCountries"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "country"
+        in: "path"
+        description: "country name"
+        required: true
+        type: "string"
+      responses:
+        503:
+          description: "Service Unavailable"
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              results:
+                $ref: "#/definitions/Stats"
+
+definitions:
+  Stats:
+    type: "object"
+    properties:
+      country:
+        type: "string"
+      updated_at:
+          type: "string"
+          format: "date-time"
+      confirmed:
+          type: "integer"
+          format: "int32"
+      deaths:
+          type: "integer"
+          format: "int32"
+      recovered:
+          type: "integer"
+          format: "int32"
+      active:
+          type: "integer"
+          format: "int32"
