@@ -1,0 +1,14 @@
+{
+  "name": "corona-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"yarn --cwd frontend start\" \"NODE_CONFIG_DIR=\"./config\" firebase serve --only functions\"",
+    "start": "NODE_CONFIG_DIR=\"./config\" firebase serve --only functions,hosting",
+    "deploy": "NODE_CONFIG_DIR=\"./functions/config\" firebase deploy"
+  },
+  "dependencies": {
+    "concurrently": "^5.1.0"
+  }
+}
